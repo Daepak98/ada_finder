@@ -21,6 +21,8 @@ void main() {
 
   // Store map controller into a variable
   final mapController = controller.mapController;
+  // reroute marker tap events to a method
+  mapController.onMarkerTapped.add((Marker m) {_onMarkerTapped(m);});
 
   runApp(new MaterialApp(
     title: "AccessU",
@@ -35,12 +37,34 @@ void main() {
           IconButton(
             icon: const Icon(Icons.my_location),
             onPressed: () {
-              // sample stuff
-              final location = LatLng(24.934163, 67.044612);
+              // clear markers
               mapController.markers.clear();
-              mapController.addMarker(MarkerOptions(
+
+              Future<Marker> _markerTest;
+
+              final location = LatLng(24.934163, 67.044612);
+              //_markerTest = mapController.addMarker();
+              _markerTest = mapController.addMarker(new MarkerOptions(
                 position: location,
               ));
+              _markerTest.then((Marker x) {
+
+
+
+              });
+
+              //    .position(location)
+              //    .title("Perth");
+              //mPerth.setTag(0);
+//              mapController.addMarker(MarkerOptions(
+//                flat: true,
+//                icon: BitmapDescriptor.defaultMarker,
+//                infoWindowText: InfoWindowText(
+//                  "ADA Marker Title",
+//                  "ADA Marker Info"
+//                ),
+//                position: location,
+//              ));
               mapController.animateCamera(
                 CameraUpdate.newLatLngZoom(location, 15.0),
               );
@@ -55,6 +79,10 @@ void main() {
     // Change/move map display based on user navigation
     navigatorObservers: <NavigatorObserver>[controller.overlayController],
   ));
+}
+
+void _onMarkerTapped(Marker marker) {
+  print("marker clicked!");
 }
 
 class MapDisplay extends StatelessWidget {
