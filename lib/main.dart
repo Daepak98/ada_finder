@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import ''
 
 void main() {
-  var manager = new FavoritesManager();
-  MapView.setApiKey(apiKey);
   runApp(new MyApp());
 }
 
