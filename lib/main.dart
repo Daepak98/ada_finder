@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import ''
 
-void main() => runApp(new MyApp());
+void main() {
+  var manager = new FavoritesManager();
+  MapView.setApiKey(apiKey);
+  runApp(new MyApp());
+}
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
