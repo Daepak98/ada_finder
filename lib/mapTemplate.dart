@@ -7,14 +7,18 @@ void main() {
   GoogleMapController.init();
   final size = MediaQueryData.fromWindow(ui.window).size;
   final GoogleMapOverlayController controller =
-  GoogleMapOverlayController.fromSize(
+      GoogleMapOverlayController.fromSize(
     width: size.width,
     height: size.height - 72.0,
   );
   final mapController = controller.mapController;
   final Widget mapWidget = GoogleMapOverlay(controller: controller);
+
   runApp(
     MaterialApp(
+      theme: ThemeData(
+        primarySwatch: Colors.red,
+      ),
       home: new Scaffold(
         appBar: AppBar(
           title: TextField(
@@ -25,13 +29,12 @@ void main() {
               icon: const Icon(Icons.my_location),
               onPressed: () {
                 final location = LatLng(24.934163, 67.044612);
-                mapController.markers.clear();
-                mapController.addMarker(MarkerOptions(
+                MarkerOptions marker = MarkerOptions(
                   position: location,
-                ));
+                );
+                mapController.addMarker(marker);
                 mapController.animateCamera(
-                  CameraUpdate.newLatLngZoom(
-                      location, 15.0),
+                  CameraUpdate.newLatLngZoom(location, 15.0),
                 );
               },
             ),
